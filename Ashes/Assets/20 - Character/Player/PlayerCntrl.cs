@@ -8,6 +8,7 @@ public class PlayerCntrl : MonoBehaviour
     private Vector2 leftControl, rightControl;
 
     private float speed = 10.0f;
+    private Vector3 direction;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class PlayerCntrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovePlayer(Time.deltaTime);
+        //MovePlayer(Time.deltaTime);
     }
 
     private void MovePlayer(float dt)
@@ -32,19 +33,29 @@ public class PlayerCntrl : MonoBehaviour
         }
     }
 
+    private void ClickToMovePlayer()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+        {
+            direction = (hit.point - transform.position).normalized;
+            transform.Translate(speed * direction * Time.deltaTime, Space.World);
+            Quaternion rotTarget = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
+        }
+    }
+
+    /*************************/
+    /*** Controller Inputs ***/
+    /*************************/
+
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             leftControl = context.ReadValue<Vector2>();
-            //Debug.Log($"Left Controller (Started): {leftControl}");
         }
-
-        /*if (context.canceled)
-        {
-            leftControl = Vector2.zero;
-            Debug.Log($"Left Controller (Canceled): {leftControl}");
-        }*/
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -55,16 +66,25 @@ public class PlayerCntrl : MonoBehaviour
         }
     }
 
+    public void OnClick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log($"OnClick ...");
+            ClickToMovePlayer();
+        }
+    }
+
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            Debug.Log($"OnFire Start ...");
+            Debug.Log($"OnFire Started ...");
         }
 
         if (context.canceled)
         {
-            Debug.Log($"OnFire End ...");
+            Debug.Log($"OnFire Ended ...");
         }
     }
 }
