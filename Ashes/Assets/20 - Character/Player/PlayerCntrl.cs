@@ -5,24 +5,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerCntrl : MonoBehaviour
 {
-    private Vector2 leftControl, rightControl;
+    private Animator animator;
 
-    private float speed = 10.0f;
+    private Vector2 leftControl;
+
+    private float speed = 7.0f;
     private Vector3 direction;
+    private Vector3 target;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponentInChildren<Animator>();
+
+        animator.SetFloat("speed", 0.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //MovePlayer(Time.deltaTime);
+        //JoyStickToMovePlayer(Time.deltaTime);
+        ClickToMovePlayer();
     }
 
-    private void MovePlayer(float dt)
+    private void Fire1()
+    {
+
+    }
+
+    private void JoyStickToMovePlayer(float dt)
     {
         if (leftControl.magnitude > 0.15f)
         {
@@ -30,19 +41,39 @@ public class PlayerCntrl : MonoBehaviour
             transform.Translate(speed * direction * Time.deltaTime, Space.World);
             Quaternion rotTarget = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
+            animator.SetFloat("speed", 1.0f);
+        } else
+        {
+            animator.SetFloat("speed", 0.0f);
         }
     }
 
     private void ClickToMovePlayer()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+        if (Mouse.current.leftButton.isPressed)
         {
-            direction = (hit.point - transform.position).normalized;
-            transform.Translate(speed * direction * Time.deltaTime, Space.World);
-            Quaternion rotTarget = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 100))
+            {
+                target = hit.point;
+                direction = (target - transform.position).normalized;
+                transform.Translate(speed * direction * Time.deltaTime, Space.World);
+                Quaternion rotTarget = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
+                animator.SetFloat("speed", 1.0f);
+            }
+        } else
+        {
+            if (Vector3.Distance(target, transform.position) > 0.1f)
+            {
+                transform.Translate(speed * Time.deltaTime * direction, Space.World);
+                Quaternion rotTarget = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
+            } else
+            {
+                animator.SetFloat("speed", 0.0f);
+            }
         }
     }
 
@@ -71,7 +102,7 @@ public class PlayerCntrl : MonoBehaviour
         if (context.performed)
         {
             Debug.Log($"OnClick ...");
-            ClickToMovePlayer();
+            //leftMouseButtonClicked = true;
         }
     }
 
@@ -85,6 +116,19 @@ public class PlayerCntrl : MonoBehaviour
         if (context.canceled)
         {
             Debug.Log($"OnFire Ended ...");
+        }
+    }
+
+    public void OnFire1(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Fire1();
+        }
+
+        if (context.canceled)
+        {
+            Debug.Log($"OnFire 1 Canceled ...");
         }
     }
 }
