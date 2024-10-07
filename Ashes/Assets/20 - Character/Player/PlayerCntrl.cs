@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerCntrl : MonoBehaviour
 {
+    private WeaponsCntrl weaponsCntrl;
+
     private Animator animator;
 
     private Vector2 leftControl;
@@ -16,6 +18,7 @@ public class PlayerCntrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weaponsCntrl = GetComponent<WeaponsCntrl>();
         animator = GetComponentInChildren<Animator>();
 
         animator.SetFloat("speed", 0.0f);
@@ -30,7 +33,7 @@ public class PlayerCntrl : MonoBehaviour
 
     private void Fire1()
     {
-
+        weaponsCntrl.Fire(0);
     }
 
     private void JoyStickToMovePlayer(float dt)
