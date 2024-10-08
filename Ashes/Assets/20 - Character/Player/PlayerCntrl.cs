@@ -104,7 +104,7 @@ public class PlayerCntrl : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log($"OnClick ...");
+            //Debug.Log($"OnClick ...");
             //leftMouseButtonClicked = true;
         }
     }
@@ -113,7 +113,7 @@ public class PlayerCntrl : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log($"OnFire Started ...");
+            Fire1();
         }
 
         if (context.canceled)
@@ -131,7 +131,7 @@ public class PlayerCntrl : MonoBehaviour
 
         if (context.canceled)
         {
-            Debug.Log($"OnFire 1 Canceled ...");
+            //Debug.Log($"OnFire 1 Canceled ...");
         }
     }
 }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Test Projectile
   prefab: {fileID: 7389544669638572276, guid: a0fde4ca2ccc0ed4485d85024eac8c90, type: 3}
-  force: 50
+  force: 40
   destroyTiming: 2
