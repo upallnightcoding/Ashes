@@ -36,6 +36,11 @@ public class PlayerCntrl : MonoBehaviour
         weaponsCntrl.Fire(0);
     }
 
+    private void CeaseFire1()
+    {
+        weaponsCntrl.StopFiring(0);
+    }
+
     private void JoyStickToMovePlayer(float dt)
     {
         if (leftControl.magnitude > 0.15f)
@@ -118,7 +123,7 @@ public class PlayerCntrl : MonoBehaviour
 
         if (context.canceled)
         {
-            Debug.Log($"OnFire Ended ...");
+            CeaseFire1();
         }
     }
 
@@ -131,7 +136,7 @@ public class PlayerCntrl : MonoBehaviour
 
         if (context.canceled)
         {
-            //Debug.Log($"OnFire 1 Canceled ...");
+            CeaseFire1();
         }
     }
 }

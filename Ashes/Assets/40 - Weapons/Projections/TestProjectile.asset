@@ -16,3 +16,7 @@ MonoBehaviour:
   prefab: {fileID: 7389544669638572276, guid: a0fde4ca2ccc0ed4485d85024eac8c90, type: 3}
   force: 40
   destroyTiming: 2
+  manual: 0
+  roundsPerSec: 10
+  maxRounds: 5
+  reloadSec: 3

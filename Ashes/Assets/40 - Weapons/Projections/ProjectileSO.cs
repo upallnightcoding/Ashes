@@ -13,11 +13,19 @@ public class ProjectileSO : ScriptableObject
 
     public float destroyTiming;
 
-    public void Fire(Vector3 muzzlePoint, Vector3 direction)
+    public bool manual;
+
+    public int roundsPerSec;
+
+    public int maxRounds;
+
+    public float reloadSec;
+
+    /*public void Fire(Vector3 muzzlePoint, Vector3 direction)
     {
         GameObject projectile = Instantiate(prefab, muzzlePoint, Quaternion.identity);
         projectile.GetComponentInChildren<Rigidbody>().AddForce(direction * force, ForceMode.Impulse);
 
         Destroy(projectile, destroyTiming);
-    }
+    }*/
 }

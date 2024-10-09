@@ -18,8 +18,6 @@ public class ProjectileCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("On Projectile Enemy ...");
-
         if (other.gameObject.TryGetComponent<DamageCntrl>(out DamageCntrl damageCntrl))
         {
             damageCntrl.TakeDamage(10.0f);
