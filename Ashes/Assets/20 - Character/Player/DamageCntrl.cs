@@ -6,13 +6,10 @@ public class DamageCntrl : MonoBehaviour
 {
     private float maxDamage = 30.0f;
 
-    public void TakeDamage(float damage)
+    public bool TakeDamage(float damage)
     {
         maxDamage -= damage;
 
-        if (maxDamage <= 0.0f)
-        {
-            Destroy(gameObject);
-        }
+        return (maxDamage <= 0.0f);
     }
 }

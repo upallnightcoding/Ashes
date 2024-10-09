@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f45d4ffa772d5b43a9024ea458224f7, type: 3}
+  m_Name: TestProjectile
+  m_EditorClassIdentifier: 
+  title: Test Projectile
+  prefab: {fileID: 7389544669638572276, guid: a0fde4ca2ccc0ed4485d85024eac8c90, type: 3}
+  force: 40
+  destroyTiming: 2
+  manual: 0
+  roundsPerSec: 10
+  maxRounds: 5
+  reloadSec: 3
+  explosion: {fileID: 1607639662943796, guid: c2be6d2f5852b58439ab43427469a2aa, type: 3}
