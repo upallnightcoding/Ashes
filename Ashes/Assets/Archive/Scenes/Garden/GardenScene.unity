@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -5822,8 +5823,8 @@ MonoBehaviour:
   randomDuration: 1
   presenceRandomDuration: 10
   presenceAmount: 1
-  objectsSearchFilter: WashiLight
   shaderSearchFilter: {fileID: -6465566751694194690, guid: 3f1a5dc54d0179e4cb1c51baa9c330e4, type: 3}
+  objectsSearchFilter: WashiLight
   renderers:
   - {fileID: 871854690}
   - {fileID: 1037182548}
@@ -10087,8 +10088,8 @@ MonoBehaviour:
   randomDuration: 1
   presenceRandomDuration: 10
   presenceAmount: 1
-  objectsSearchFilter: WashiLight
   shaderSearchFilter: {fileID: -6465566751694194690, guid: 3f1a5dc54d0179e4cb1c51baa9c330e4, type: 3}
+  objectsSearchFilter: WashiLight
   renderers:
   - {fileID: 871250615}
   - {fileID: 1940294818}
@@ -18876,7 +18877,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -25253,8 +25254,8 @@ MonoBehaviour:
   randomDuration: 1
   presenceRandomDuration: 10
   presenceAmount: 1
-  objectsSearchFilter: WashiLight
   shaderSearchFilter: {fileID: -6465566751694194690, guid: 3f1a5dc54d0179e4cb1c51baa9c330e4, type: 3}
+  objectsSearchFilter: WashiLight
   renderers:
   - {fileID: 2123909896}
   - {fileID: 592430823}
@@ -27557,7 +27558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9098746063886284299, guid: 4e7a5f8afc5822d439bae668cd535474, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.080981
+      value: -1.089
       objectReference: {fileID: 0}
     - target: {fileID: 9098746063886284299, guid: 4e7a5f8afc5822d439bae668cd535474, type: 3}
       propertyPath: m_LocalPosition.z
@@ -46239,7 +46240,15 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2760477044887562765, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
+      propertyPath: m_TaaSettings.m_Quality
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760477044887562765, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
       propertyPath: m_TaaSettings.contrastAdaptiveSharpening
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760477044887562765, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
+      propertyPath: m_TaaSettings.m_ContrastAdaptiveSharpening
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4682428349833130388, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
@@ -46256,7 +46265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7019485897165914674, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.17800069
+      value: 1.3225541
       objectReference: {fileID: 0}
     - target: {fileID: 7019485897165914674, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46264,7 +46273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7019485897165914674, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.998808
+      value: 11.416643
       objectReference: {fileID: 0}
     - target: {fileID: 7019485897165914674, guid: 8e5bed6b8dcfed240a38affefd9c58f6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51508,10 +51517,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1291007551}
     m_Modifications:
-    - target: {fileID: -6296077919525568843, guid: 8002abbc195e6db4394eaaefe714549d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 1120179860521867153, guid: a4f1d8780511d5542bef8c9076a48b47, type: 3}
       propertyPath: m_Name
       value: Stone_03_Prefab (41)
@@ -51579,6 +51584,10 @@ PrefabInstance:
     - target: {fileID: 7418859031576854947, guid: a4f1d8780511d5542bef8c9076a48b47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -98.92999
+      objectReference: {fileID: 0}
+    - target: {fileID: -6296077919525568843, guid: 8002abbc195e6db4394eaaefe714549d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -52015,8 +52024,8 @@ MonoBehaviour:
   randomDuration: 1
   presenceRandomDuration: 10
   presenceAmount: 1
-  objectsSearchFilter: WashiLight
   shaderSearchFilter: {fileID: -6465566751694194690, guid: 3f1a5dc54d0179e4cb1c51baa9c330e4, type: 3}
+  objectsSearchFilter: WashiLight
   renderers:
   - {fileID: 2003411005}
   - {fileID: 190939033}
@@ -53382,7 +53391,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -54433,7 +54442,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -58362,6 +58371,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2142622098}
     m_Modifications:
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4501727779021956375, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_Name
       value: Ceiling_300x600_01_Prefab (3)
@@ -58408,14 +58425,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6683398059872993816, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -71071,7 +71080,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -78550,8 +78559,8 @@ MonoBehaviour:
   randomDuration: 1
   presenceRandomDuration: 10
   presenceAmount: 1
-  objectsSearchFilter: WashiLight
   shaderSearchFilter: {fileID: -6465566751694194690, guid: 3f1a5dc54d0179e4cb1c51baa9c330e4, type: 3}
+  objectsSearchFilter: WashiLight
   renderers:
   - {fileID: 975062010}
   - {fileID: 1630473803}
@@ -82241,6 +82250,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2142622098}
     m_Modifications:
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4501727779021956375, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_Name
       value: Ceiling_300x600_01_Prefab (6)
@@ -82291,14 +82308,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6683398059872993816, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -86592,7 +86601,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -89948,7 +89957,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -91082,6 +91091,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2142622098}
     m_Modifications:
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4501727779021956375, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_Name
       value: Ceiling_300x600_01_Prefab (4)
@@ -91128,14 +91145,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6683398059872993816, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -95389,10 +95398,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1291007551}
     m_Modifications:
-    - target: {fileID: -6296077919525568843, guid: 8002abbc195e6db4394eaaefe714549d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 1120179860521867153, guid: a4f1d8780511d5542bef8c9076a48b47, type: 3}
       propertyPath: m_Name
       value: Stone_03_Prefab (43)
@@ -95456,6 +95461,10 @@ PrefabInstance:
     - target: {fileID: 7418859031576854947, guid: a4f1d8780511d5542bef8c9076a48b47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 271.13098
+      objectReference: {fileID: 0}
+    - target: {fileID: -6296077919525568843, guid: 8002abbc195e6db4394eaaefe714549d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -96899,6 +96908,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2142622098}
     m_Modifications:
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4501727779021956375, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_Name
       value: Ceiling_300x600_01_Prefab (5)
@@ -96945,14 +96962,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6683398059872993816, guid: 1502b4ebd708d264fac30e3179d74875, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150157987213459282, guid: 6e5bd4b683494004d9336e90223661b5, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -110404,10 +110413,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1291007551}
     m_Modifications:
-    - target: {fileID: -6296077919525568843, guid: 8002abbc195e6db4394eaaefe714549d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 1120179860521867153, guid: a4f1d8780511d5542bef8c9076a48b47, type: 3}
       propertyPath: m_Name
       value: Stone_03_Prefab (42)
@@ -110471,6 +110476,10 @@ PrefabInstance:
     - target: {fileID: 7418859031576854947, guid: a4f1d8780511d5542bef8c9076a48b47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -105.768
+      objectReference: {fileID: 0}
+    - target: {fileID: -6296077919525568843, guid: 8002abbc195e6db4394eaaefe714549d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -116328,7 +116337,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116403,7 +116412,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116478,7 +116487,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116585,7 +116594,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116660,7 +116669,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116735,7 +116744,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116810,7 +116819,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116885,7 +116894,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -116960,7 +116969,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -117035,7 +117044,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -117110,7 +117119,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -117185,7 +117194,7 @@ MonoBehaviour:
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
