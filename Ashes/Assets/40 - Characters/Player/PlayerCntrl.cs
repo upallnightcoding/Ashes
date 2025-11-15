@@ -11,19 +11,27 @@ namespace Ashes.PlayerCntrl
         [SerializeField] private float playerSpeed = 8.0f;
         [SerializeField] private float playerRotation = 400.0f;
         [SerializeField] private float GRAVITY = -9.81f;
-        [SerializeField] private float gravityMultiplier = 3.0f;
+        [SerializeField] private float jumpModifier = 2.0f;
+        [SerializeField] private float jumpHeight = 2.0f;
+        [SerializeField] private float moveSpeed = 6.0f;
+       
         private Vector2 playerMovement;
-        private Vector3 moveDirection;
+        private Vector3 moveDirection = new Vector3(0.0f, 0.0f, 0.0f);
         private CharacterController charCntrl;
-        private float jumpHeight = 2.0f;
+
+        private Vector3 turn = new Vector3();
+
+        private bool isGrounded = true;
+
+        private float ySpeed = 0.0f;
 
         // Animation Controls
         //-------------------
         private Animator animator;
 
-        private PlayerState currentState = PlayerState.IDLE;
+        public PlayerState currentState = PlayerState.IDLE;
 
-        private PlayerInputCntrl playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
+        private PlayerInputCntrl playerInputCntrl = PlayerInputCntrl.IDLE;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -32,8 +40,48 @@ namespace Ashes.PlayerCntrl
             charCntrl = GetComponent<CharacterController>();
         }
 
+        void xxxUpdate()
+        {
+            isGrounded = charCntrl.isGrounded;
+
+            if (isGrounded && ySpeed < 0)
+            {
+                ySpeed = -1.0f;
+            } else
+            {
+                ySpeed += GRAVITY * Time.deltaTime;
+            }
+
+            if (isGrounded)
+            {
+                RotatePlayer();
+            }
+
+            if ((playerInputCntrl == PlayerInputCntrl.JUMP) && isGrounded)
+            {
+                ySpeed += Mathf.Sqrt(jumpHeight * -jumpModifier * GRAVITY);
+
+                playerInputCntrl = PlayerInputCntrl.MOVEMENT;
+            }
+
+            moveDirection.y = ySpeed;
+
+            charCntrl.Move(moveSpeed * moveDirection * Time.deltaTime);
+        }
+
         void Update()
         {
+            isGrounded = charCntrl.isGrounded;
+
+            if (isGrounded && ySpeed < 0)
+            {
+                ySpeed = -1.0f;
+            }
+            else
+            {
+                ySpeed += GRAVITY * Time.deltaTime;
+            }
+
             switch (currentState)
             {
                 case PlayerState.IDLE:
@@ -46,8 +94,22 @@ namespace Ashes.PlayerCntrl
                     currentState = State_Jump();
                     break;
                 case PlayerState.JUMPING:
-                    currentState = State_Jumping(moveDirection);
+                    currentState = State_Jumping();
                     break;
+            }
+
+            switch(playerInputCntrl)
+            {
+                case PlayerInputCntrl.JUMP:
+                    currentState = PlayerState.JUMP;
+                    playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
+                    break;
+            }
+
+            if (playerInputCntrl != PlayerInputCntrl.IDLE)
+            {
+                RotatePlayer();
+                MovePlayer();
             }
         }
 
@@ -55,24 +117,14 @@ namespace Ashes.PlayerCntrl
 
         private PlayerState State_Jump()
         {
-            jumpHeight = 3.0f;
-
-            moveDirection.y += jumpHeight;
-
-            MovePlayer(moveDirection);
+            ySpeed += Mathf.Sqrt(jumpHeight * -jumpModifier * GRAVITY);
 
             return (PlayerState.JUMPING);
         }
 
-        private PlayerState State_Jumping(Vector3 moveDirection)
+        private PlayerState State_Jumping()
         {
-            MovePlayer(moveDirection);
-
-            moveDirection.y += GRAVITY * Time.deltaTime;
-
-            Debug.Log($"moveDirection.y: {moveDirection.y}");
-
-            return (moveDirection.y > 0.0f ? PlayerState.JUMPING : PlayerState.RUNNING);
+            return (isGrounded ? PlayerState.RUNNING: PlayerState.JUMPING);
         }
 
         private PlayerState State_Idle(PlayerInputCntrl playerInput)
@@ -98,8 +150,7 @@ namespace Ashes.PlayerCntrl
             switch (playerInputCntrl)
             {
                 case PlayerInputCntrl.MOVEMENT:
-                    RotatePlayer(moveDirection);
-                    MovePlayer(moveDirection);
+                    nextState = PlayerState.RUNNING;
                     break;
                 case PlayerInputCntrl.JUMP:
                     nextState = PlayerState.JUMP;
@@ -119,21 +170,31 @@ namespace Ashes.PlayerCntrl
         /**
          * RotatePlayer() - 
          */
-        private void RotatePlayer(Vector3 moveDirection)
+        private void RotatePlayer()
         {
-            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            turn.x = moveDirection.x;
+            turn.y = 0.0f;
+            turn.z = moveDirection.z;
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotation * Time.deltaTime);
+            if (turn != Vector3.zero)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(turn, Vector3.up);
+
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotation * Time.deltaTime);
+            }
+
         }
 
         /**
          * MovePlayer() - 
          */
-        private void MovePlayer(Vector3 moveDirection)
+        private void MovePlayer()
         {
             animator.SetBool("run", true);
 
-            charCntrl.Move(playerSpeed * moveDirection * Time.deltaTime);
+            moveDirection.y = ySpeed;
+
+            charCntrl.Move(moveSpeed * moveDirection * Time.deltaTime);
         }
 
         #endregion
@@ -154,7 +215,7 @@ namespace Ashes.PlayerCntrl
             }
             else
             {
-                playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
+                playerInputCntrl = PlayerInputCntrl.IDLE;
             }
         }
 
@@ -162,8 +223,6 @@ namespace Ashes.PlayerCntrl
         {
             if (context.performed)
             {
-                Debug.Log($"OnJump ...");
-
                 playerInputCntrl = PlayerInputCntrl.JUMP;
             }
         }
@@ -181,9 +240,10 @@ namespace Ashes.PlayerCntrl
 
     public enum PlayerInputCntrl
     {
-        DO_NOTHING,
+        IDLE,
         MOVEMENT,
-        JUMP
+        JUMP,
+        DO_NOTHING
     }
 }
 
