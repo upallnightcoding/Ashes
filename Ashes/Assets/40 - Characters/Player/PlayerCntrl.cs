@@ -14,6 +14,7 @@ namespace Ashes.PlayerCntrl
         [SerializeField] private float jumpModifier = 2.0f;
         [SerializeField] private float jumpHeight = 2.0f;
         [SerializeField] private float moveSpeed = 6.0f;
+        [SerializeField] private bool isGrounded = true;
        
         private Vector2 playerMovement;
         private Vector3 moveDirection = new Vector3(0.0f, 0.0f, 0.0f);
@@ -21,7 +22,8 @@ namespace Ashes.PlayerCntrl
 
         private Vector3 turn = new Vector3();
 
-        private bool isGrounded = true;
+
+        private float movespeed = 0.0f;
 
         private float ySpeed = 0.0f;
 
@@ -119,12 +121,28 @@ namespace Ashes.PlayerCntrl
         {
             ySpeed += Mathf.Sqrt(jumpHeight * -jumpModifier * GRAVITY);
 
+            animator.SetBool("finishjump", false);
+            animator.SetBool("startjump", true);
+
             return (PlayerState.JUMPING);
         }
 
         private PlayerState State_Jumping()
         {
-            return (isGrounded ? PlayerState.RUNNING: PlayerState.JUMPING);
+            PlayerState nextState = PlayerState.IDLE;
+
+            if (isGrounded)
+            {
+                nextState = PlayerState.RUNNING;
+                animator.SetBool("startjump", false);
+                animator.SetBool("finishjump", true);
+                animator.SetBool("isfalling", false);
+            } else
+            {
+                nextState = PlayerState.JUMPING;
+            }
+
+            return (nextState);
         }
 
         private PlayerState State_Idle(PlayerInputCntrl playerInput)
@@ -160,6 +178,12 @@ namespace Ashes.PlayerCntrl
                     break;
             }
 
+            if (!isGrounded)
+            {
+                nextState = PlayerState.JUMPING;
+                animator.SetBool("isfalling", true);
+            }
+
             return (nextState);
         }
 
@@ -190,7 +214,7 @@ namespace Ashes.PlayerCntrl
          */
         private void MovePlayer()
         {
-            animator.SetBool("run", true);
+            animator.SetFloat("movespeed", movespeed);
 
             moveDirection.y = ySpeed;
 
@@ -212,6 +236,8 @@ namespace Ashes.PlayerCntrl
                 moveDirection.x = playerMovement.x; // Horizontal Axis Controls
                 moveDirection.y = 0.0f;
                 moveDirection.z = playerMovement.y; // Vertical Axis Controls
+
+                movespeed = playerMovement.magnitude;
             }
             else
             {
