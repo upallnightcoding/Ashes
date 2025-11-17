@@ -48,6 +48,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e50a549c97961645be8d126acf459d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpeed: 8
+  playerRotation: 400
+  GRAVITY: -9.81
+  jumpModifier: 2
+  jumpHeight: 1
+  moveSpeed: 6
+  isGrounded: 1
+  maxNumberJumps: 3
+  currentState: 0
 --- !u!114 &8514771615270296799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +227,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 2.15
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
