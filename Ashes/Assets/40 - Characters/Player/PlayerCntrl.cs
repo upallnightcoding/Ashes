@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,13 @@ namespace Ashes.PlayerCntrl
         [SerializeField] private float moveSpeed = 6.0f;
         [SerializeField] private bool isGrounded = true;
         [SerializeField] private int maxNumberJumps = 3;
-       
+        [SerializeField] private GameObject playerRoot;
+        [SerializeField] private Material dashMaterial;
+        [SerializeField] private float meshDestroyDelay;
+        [SerializeField] private string shaderVarRef;
+        [SerializeField] private float shaderVarRate = 0.1f;
+        [SerializeField] private float shaderVarRefreshRate = 0.05f;
+
         private Vector2 playerMovement;
         private Vector3 moveDirection = new Vector3(0.0f, 0.0f, 0.0f);
         private CharacterController charCntrl;
@@ -28,6 +35,11 @@ namespace Ashes.PlayerCntrl
         private float movespeed = 0.0f;
 
         private float yHeight = 0.0f;
+
+        private float activeTime = 2.0f;
+        private float meshRefreshRate = 0.1f;
+        private bool isTrailActive = false;
+        private SkinnedMeshRenderer[] skinnedMeshRenderers = null;
 
         // Animation Controls
         //-------------------
@@ -42,6 +54,57 @@ namespace Ashes.PlayerCntrl
         {
             animator = GetComponent<Animator>();
             charCntrl = GetComponent<CharacterController>();
+        }
+
+        private IEnumerator ActivateTrail(float timeActive)
+        {
+            isTrailActive = true;
+            skinnedMeshRenderers = null;
+
+            while ((timeActive > 0.0f) && (isTrailActive))
+            {
+                timeActive -= meshRefreshRate;
+
+                if (skinnedMeshRenderers == null)
+                {
+                    skinnedMeshRenderers = playerRoot.GetComponentsInChildren<SkinnedMeshRenderer>();
+                }
+
+                Debug.Log($"Number Skinned: {skinnedMeshRenderers.Length}");
+
+                for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+                {
+                    GameObject go = new GameObject();
+                    go.transform.SetPositionAndRotation(transform.position, transform.rotation);
+                    MeshRenderer mr = go.AddComponent<MeshRenderer>();
+                    MeshFilter mf = go.AddComponent<MeshFilter>();
+
+                    Mesh mesh = new Mesh();
+                    skinnedMeshRenderers[i].BakeMesh(mesh);
+                    mf.mesh = mesh;
+                    mr.material = dashMaterial;
+
+                    StartCoroutine(AnimatorMaterialFloat(mr.material, 0, shaderVarRate, shaderVarRefreshRate));
+
+                    Destroy(go, meshDestroyDelay);
+                }
+
+                yield return new WaitForSeconds(meshRefreshRate);
+            }
+
+            isTrailActive = false;
+        }
+
+        private IEnumerator AnimatorMaterialFloat(Material mat, float goal, float rate, float refreshRate)
+        {
+            float valueToAnimate = mat.GetFloat(shaderVarRef);
+
+            while (valueToAnimate > goal)
+            {
+                valueToAnimate -= rate;
+                mat.SetFloat(shaderVarRef, valueToAnimate);
+                yield return new WaitForSeconds(refreshRate);
+            }
         }
 
         void xxxUpdate()
@@ -108,9 +171,7 @@ namespace Ashes.PlayerCntrl
                     
                     break;*/
 
-                case PlayerInputCntrl.DASH:
-                    Debug.Log("Dash Request ...");
-                    break;
+               
             }
 
             if (playerInputCntrl != PlayerInputCntrl.IDLE)
@@ -184,17 +245,20 @@ namespace Ashes.PlayerCntrl
 
             switch (playerInputCntrl)
             {
-                //case PlayerInputCntrl.MOVEMENT:
-                    //nextState = PlayerState.SPRINTING;
-                    //break;
+                case PlayerInputCntrl.DASH_REQUEST:
+                    playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
+                    StartCoroutine(ActivateTrail(activeTime));
+                    Debug.Log("Dashing ...");
+                    break;
                 case PlayerInputCntrl.JUMP_REQUEST:
+                    playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
+
                     if (numberOfJumps < maxNumberJumps)
                     {
                         nextState = PlayerState.START_JUMP;
                         numberOfJumps++;
                     }
 
-                    playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
                     break;
             }
 
@@ -294,7 +358,7 @@ namespace Ashes.PlayerCntrl
         {
             if (context.performed)
             {
-                playerInputCntrl = PlayerInputCntrl.DASH;
+                playerInputCntrl = PlayerInputCntrl.DASH_REQUEST;
             }
         }
 
@@ -314,7 +378,7 @@ namespace Ashes.PlayerCntrl
         IDLE,
         MOVEMENT,
         JUMP_REQUEST,
-        DASH,
+        DASH_REQUEST,
         DO_NOTHING
     }
 }

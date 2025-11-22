@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8514771615270296799}
   - component: {fileID: 6799783795187460683}
   - component: {fileID: 2291938036458097538}
+  - component: {fileID: 9101519190934261818}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -55,7 +56,8 @@ MonoBehaviour:
   jumpHeight: 1
   moveSpeed: 6
   isGrounded: 1
-  maxNumberJumps: 3
+  maxNumberJumps: 2
+  playerRoot: {fileID: 5613728186658450282}
   currentState: 0
 --- !u!114 &8514771615270296799
 MonoBehaviour:
@@ -182,6 +184,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2552742397893723369}
+        m_TargetAssemblyTypeName: Ashes.PlayerCntrl.PlayerCntrl, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 87c52ad8-251f-40b2-a625-f231ef7a6f44
+    m_ActionName: 'Player/Dash[/XInputControllerWindows/buttonEast,/Keyboard/c]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -227,13 +245,25 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2.15
+  m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &9101519190934261818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806539112868623426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6d1f3d875e52f843add08a750745eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5010638631902731880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -294,5 +324,10 @@ PrefabInstance:
 --- !u!4 &30596242713154455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5036693816418520575, guid: c40f7c9d822c08b43a34200e6ec68ec3, type: 3}
+  m_PrefabInstance: {fileID: 5010638631902731880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5613728186658450282 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 607604707849319682, guid: c40f7c9d822c08b43a34200e6ec68ec3, type: 3}
   m_PrefabInstance: {fileID: 5010638631902731880}
   m_PrefabAsset: {fileID: 0}
