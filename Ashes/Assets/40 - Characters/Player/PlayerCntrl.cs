@@ -36,10 +36,11 @@ namespace Ashes.PlayerCntrl
 
         private float yHeight = 0.0f;
 
-        private float activeTime = 2.0f;
-        private float meshRefreshRate = 0.1f;
-        private bool isTrailActive = false;
+        private float activeDashTime = 0.5f;
+        private float meshRefreshRate = 0.005f;
+        private bool isDashActive = false;
         private SkinnedMeshRenderer[] skinnedMeshRenderers = null;
+        private float dashSpeed = 1.0f;
 
         // Animation Controls
         //-------------------
@@ -56,12 +57,15 @@ namespace Ashes.PlayerCntrl
             charCntrl = GetComponent<CharacterController>();
         }
 
-        private IEnumerator ActivateTrail(float timeActive)
+        private IEnumerator ActivateDashTrail(float timeActive)
         {
-            isTrailActive = true;
+            isDashActive = true;
             skinnedMeshRenderers = null;
 
-            while ((timeActive > 0.0f) && (isTrailActive))
+            animator.SetFloat("dashspeed", 2.0f);
+            dashSpeed = 3.0f;
+
+            while ((timeActive > 0.0f) && (isDashActive))
             {
                 timeActive -= meshRefreshRate;
 
@@ -69,8 +73,6 @@ namespace Ashes.PlayerCntrl
                 {
                     skinnedMeshRenderers = playerRoot.GetComponentsInChildren<SkinnedMeshRenderer>();
                 }
-
-                Debug.Log($"Number Skinned: {skinnedMeshRenderers.Length}");
 
                 for (int i = 0; i < skinnedMeshRenderers.Length; i++)
                 {
@@ -92,7 +94,9 @@ namespace Ashes.PlayerCntrl
                 yield return new WaitForSeconds(meshRefreshRate);
             }
 
-            isTrailActive = false;
+            animator.SetFloat("dashspeed", 1.0f);
+            dashSpeed = 1.0f;
+            isDashActive = false;
         }
 
         private IEnumerator AnimatorMaterialFloat(Material mat, float goal, float rate, float refreshRate)
@@ -133,7 +137,7 @@ namespace Ashes.PlayerCntrl
 
             moveDirection.y = yHeight;
 
-            charCntrl.Move(moveSpeed * moveDirection * Time.deltaTime);
+            charCntrl.Move(moveSpeed * dashSpeed * moveDirection * Time.deltaTime);
         }
 
         void Update()
@@ -247,8 +251,7 @@ namespace Ashes.PlayerCntrl
             {
                 case PlayerInputCntrl.DASH_REQUEST:
                     playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
-                    StartCoroutine(ActivateTrail(activeTime));
-                    Debug.Log("Dashing ...");
+                    StartCoroutine(ActivateDashTrail(activeDashTime));
                     break;
                 case PlayerInputCntrl.JUMP_REQUEST:
                     playerInputCntrl = PlayerInputCntrl.DO_NOTHING;
@@ -319,7 +322,7 @@ namespace Ashes.PlayerCntrl
 
             moveDirection.y = yHeight;
 
-            charCntrl.Move(moveSpeed * moveDirection * Time.deltaTime);
+            charCntrl.Move(moveSpeed * dashSpeed * moveDirection * Time.deltaTime);
         }
 
         #endregion
