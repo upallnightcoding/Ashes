@@ -57,7 +57,12 @@ MonoBehaviour:
   moveSpeed: 6
   isGrounded: 1
   maxNumberJumps: 2
-  playerRoot: {fileID: 5613728186658450282}
+  playerRoot: {fileID: 2835182899869387828}
+  dashMaterial: {fileID: 2100000, guid: adda4ae7769e5e94f9d9c64780f6c0b3, type: 2}
+  meshDestroyDelay: 5
+  shaderVarRef: _Alpha
+  shaderVarRate: 0.05
+  shaderVarRefreshRate: 0.1
   currentState: 0
 --- !u!114 &8514771615270296799
 MonoBehaviour:
@@ -326,8 +331,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5036693816418520575, guid: c40f7c9d822c08b43a34200e6ec68ec3, type: 3}
   m_PrefabInstance: {fileID: 5010638631902731880}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5613728186658450282 stripped
+--- !u!1 &2835182899869387828 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 607604707849319682, guid: c40f7c9d822c08b43a34200e6ec68ec3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7120695251770233436, guid: c40f7c9d822c08b43a34200e6ec68ec3, type: 3}
   m_PrefabInstance: {fileID: 5010638631902731880}
   m_PrefabAsset: {fileID: 0}

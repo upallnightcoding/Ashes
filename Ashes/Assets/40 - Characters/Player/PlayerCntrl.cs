@@ -366,6 +366,16 @@ namespace Ashes.PlayerCntrl
         }
 
         #endregion
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("Collision ...");
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Trigger ...");
+        }
     }
 
     public enum PlayerState
